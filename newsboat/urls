@@ -1,0 +1,38 @@
+# ~/.newsboat/urls
+
+"query:Tech:tags # \"tech\""
+https://hnrss.org/frontpage "Hacker News" tech
+https://danluu.com/atom.xml "Dan Luu" tech
+https://jvns.ca/atom.xml "Julia Evans" tech
+https://aphyr.com/posts.atom "Aphyr" tech
+http://prog21.dadgum.com/atom.xml "Programming 21st Century" tech
+https://drewdevault.com/blog/index.xml "Drew DeVault" tech
+https://suckless.org/atom.xml "suckless" tech
+https://techlore.tech/feed.xml "Techlore" tech
+
+"query:Literature:tags # \"literature\""
+https://www.theparisreview.org/blog/feed/ "Paris Review" literature
+https://lithub.com/feed/ "LitHub" literature
+https://themillions.com/feed "The Millions" literature
+https://www.themarginalian.org/feed/ "The Marginalian" literature
+
+"query:Philosophy:tags # \"philosophy\""
+https://gwern.net/index.rss "Gwern" philosophy
+https://astralcodexten.substack.com/feed "Astral Codex Ten" philosophy
+https://stratechery.com/feed/ "Stratechery" philosophy
+
+"query:News:tags # \"news\""
+https://www.propublica.org/feeds/propublica/main "ProPublica" news
+https://feeds.npr.org/1001/rss.xml "NPR News" news
+https://rss.cnn.com/rss/edition.rss "Reuters World" news
+https://www.democracynow.org/democracynow.rss "Democracy Now" news
+https://jacobinmag.com/feed/ "Jacobin" news
+https://theintercept.com/feed/ "The Intercept" news
+
+"query:Based/Lifestyle:tags # \"based\""
+https://lukesmith.xyz/rss.xml "Luke Smith" based
+https://100r.co/links/rss.xml "Hundred Rabbits" based
+https://btxx.org/feed.xml "bt" based
+https://based.cooking/rss.xml "Based Cooking" based
+
+# Add your own below:

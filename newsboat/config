@@ -1,0 +1,65 @@
+# ~/.newsboat/config
+
+# UI Settings
+show-read-feeds yes
+show-read-articles yes
+feed-sort-order unreadarticlecount-asc
+article-sort-order date-desc
+text-width 80
+pager internal
+
+# Browser
+browser "firefox %u &"
+macro m set browser "mpv %u" ; open-in-browser ; set browser "firefox %u &"
+macro y set browser "yt-dlp %u" ; open-in-browser ; set browser "firefox %u &"
+
+# Colors (solarized dark)
+color background         default   default
+color listnormal         default   default
+color listfocus          black     cyan
+color listfocus_unread   black     cyan     bold
+color info               cyan      black    bold
+color article            default   default
+
+# Key bindings (vim-like)
+bind-key j down
+bind-key k up
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key G end
+bind-key g home
+bind-key d pagedown
+bind-key u pageup
+bind-key l open
+bind-key h quit
+bind-key a toggle-article-read
+bind-key n next-unread
+bind-key N prev-unread
+bind-key D pb-download
+bind-key U show-urls
+bind-key x pb-delete
+
+# Auto-reload
+auto-reload yes
+reload-time 120
+reload-threads 4
+
+# Misc
+confirm-exit no
+cleanup-on-quit yes
+download-path "~/Downloads/%n"
+max-items 100
+
+# Podboat (if you use podcasts)
+download-path "~/podcasts/%h/%n"
+max-downloads 3
+
+# Notification
+notify-program "notify-send"
+notify-always yes
+notify-format "newsboat: %n unread articles"
+
+# Kill files (filter out annoyances)
+ignore-mode "display"
+ignore-article "*" "title =~ \"Sponsored\""
+ignore-article "*" "title =~ \"Advertisement\"" p
