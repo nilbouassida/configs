@@ -1,0 +1,30 @@
+
+# ===== ALIASES =====
+alias ll='ls -lahG --color'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias grep='grep --color=auto'
+alias ip='curl ifconfig.me'
+alias c='clear'
+alias h='history'
+alias ports='lsof -iTCP -sTCP:LISTEN -n -P'
+alias ls='ls --color'
+alias l="ls -a"
+alias e="nvim ."
+
+alias tn="tmux new-session -s"
+alias tl="tmux list-sessions"
+alias t="tmux attach-session"
+
+
+
+# ===== JUMPS =====
+alias work="cd ~/Documents/locationhero/entwicklung"
+alias obs="nvim ~/Documents/vault"
+alias std="cd ~/Documents/studium/sose25"
+alias forsa='cd ~/Documents/studium/sose25/forsa'
+alias isda='cd ~/Documents/studium/sose25/isda'
+alias nw='cd ~/Documents/studium/sose25/nw/osiris'
+alias loc='cd ~/Documents/locationhero/entwicklung'
+alias cod="cd ~/Documents/coding/"
+alias cnf="cd ~/.config/"
