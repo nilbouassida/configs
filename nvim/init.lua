@@ -11,6 +11,7 @@ vim.opt.softtabstop      = 4
 vim.o.swapfile           = false
 vim.g.mapleader          = ' '
 vim.o.winborder          = 'rounded'
+vim.opt.winborder        = 'rounded'
 vim.opt.ignorecase       = true
 vim.opt.incsearch        = true
 vim.opt.hlsearch         = true
@@ -24,8 +25,9 @@ vim.opt.termguicolors    = true
 
 vim.keymap.set('n', '<leader>o', ':update<CR> :so<CR>')
 vim.keymap.set('n', '<leader>w', ':write<CR>')
-vim.keymap.set('n', '<leader>q', ':wq<CR>')
+vim.keymap.set('n', '<leader>q', ':NvimTreeClose<CR> :wq<CR>')
 vim.keymap.set('n', '<leader>k', ':quit!<CR>')
+vim.keymap.set('n', '<leader>u', vim.diagnostic.open_float, { desc = 'Show line diagnostics' })
 
 vim.keymap.set('n', '<Esc><Esc>', ':noh<CR>')
 vim.keymap.set('v', 'K', '"+y<CR>')
@@ -55,6 +57,7 @@ vim.pack.add({
     { src = 'https://github.com/saadparwaiz1/cmp_luasnip' },
     { src = 'https://github.com/hrsh7th/cmp-nvim-lsp' },
     { src = 'https://github.com/hrsh7th/cmp-path' },
+    { src = 'https://github.com/saecki/crates.nvim' },
 
     { src = 'https://github.com/chomosuke/typst-preview.nvim' },
     { src = 'https://github.com/vague2k/vague.nvim' },
@@ -90,6 +93,14 @@ require "nvim-treesitter.configs".setup({
 require "oil".setup()
 require 'nvim-tree'.setup()
 
+require('crates').setup({
+  lsp = {
+    enabled = true,     -- use the in-process LSP
+    actions = true,     -- code actions in Cargo.toml
+    completion = true,  -- completion via LSP (works with your existing nvim-cmp + nvim_lsp source)
+    hover = true,       -- K to show crate info (or your hover key)
+  },
+})
 
 
 
@@ -162,12 +173,54 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(
 
 local servers      = {
     'clangd', 'ts_ls', 'pyright', 'asm_lsp',
-    'lua_ls', 'biome', 'emmet_ls',
+    'lua_ls', 'biome', 'emmet_ls', 'rust_analyzer',
 }
 for _, name in ipairs(servers) do
     lsp[name].setup({ capabilities = capabilities })
 end
 
+lsp.rust_analyzer.setup({
+    capabilities = capabilities,
+    settings = {
+        ['rust-analyzer'] = {
+            cargo = { allFeatures = true },
+            checkOnSave = true,
+            check = { command = 'clippy' },
+            diagnostics = { experimental = { enable = true } },
+        },
+    },
+})
+
+-- Inlay hints when rust-analyzer attaches (works on 0.10+ and nightlies)
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('RustInlayHints', { clear = true }),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client or client.name ~= 'rust_analyzer' then return end
+
+    local ih = vim.lsp.inlay_hint
+    if not ih then return end
+
+    if type(ih) == 'function' then
+      -- Neovim 0.10 style
+      pcall(ih, args.buf, true)
+    elseif type(ih) == 'table' and ih.enable then
+      -- Newer nightlies
+      -- Try both known call shapes without crashing
+      if not pcall(ih.enable, args.buf, true) then
+        pcall(ih.enable, true, { bufnr = args.buf })
+      end
+    end
+  end,
+})
+
+-- Format Rust buffers on save (rustfmt via LSP)
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*.rs',
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
 
 -- Completion menu settings
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
@@ -190,7 +243,9 @@ vim.keymap.set('n', '<leader>f', ":Pick files<CR>")
 vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
 -- vim.keymap.set('n', '<leader>t', ":Oil<CR>")
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
-vim.lsp.enable({ "lua_ls", "biome", "tinymist", "emmetls", "clangd", "tsserver", "pyright", "asm_lsp" })
+vim.lsp.enable({ "lua_ls", "biome", "tinymist", "emmet_ls", "clangd", "ts_ls", "pyright", "asm_lsp", "rust_analyzer" })
+
+vim.g.python3_host_prog = "/usr/bin/python3"
 
 require "vague".setup({ transparent = true })
 vim.cmd("colorscheme vague")

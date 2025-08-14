@@ -1,0 +1,139 @@
+{
+    "profiles": [
+        {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Greek epsilon with left_shift + left_alt + e",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": {
+                                        "mandatory": ["left_shift", "left_alt"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    { "select_input_source": { "input_source_id": "com.apple.keylayout.UnicodeHexInput" } },
+                                    {
+                                        "key_code": "u",
+                                        "modifiers": ["left_alt"]
+                                    },
+                                    {
+                                        "key_code": "0",
+                                        "modifiers": ["left_shift"]
+                                    },
+                                    {
+                                        "key_code": "3",
+                                        "modifiers": ["left_shift"]
+                                    },
+                                    {
+                                        "key_code": "b",
+                                        "modifiers": ["left_shift"]
+                                    },
+                                    {
+                                        "key_code": "5",
+                                        "modifiers": ["left_shift"]
+                                    },
+                                    { "key_code": "spacebar" },
+                                    { "select_input_source": { "language": "en" } }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "math mappings",
+                        "enabled": false,
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "mandatory": ["left_shift"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "page_down",
+                                        "modifiers": []
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "mandatory": ["right_shift"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "apple_vendor_keyboard_key_code": "mission_control",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "ü and ä using left alt",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "a",
+                                    "modifiers": {
+                                        "mandatory": ["left_alt"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "u",
+                                        "lazy": true,
+                                        "modifiers": ["left_alt"]
+                                    },
+                                    { "key_code": "a" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": {
+                                        "mandatory": ["left_alt"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "u",
+                                        "lazy": true,
+                                        "modifiers": ["left_alt"]
+                                    },
+                                    { "key_code": "u" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "name": "Default profile",
+            "selected": true,
+            "simple_modifications": [
+                {
+                    "from": { "key_code": "caps_lock" },
+                    "to": [{ "key_code": "escape" }]
+                }
+            ],
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        }
+    ]
+}

@@ -19,12 +19,12 @@ alias t="tmux attach-session"
 
 
 # ===== JUMPS =====
-alias work="cd ~/Documents/locationhero/entwicklung"
+alias work="cd ~/locationhero/entwicklung"
 alias obs="nvim ~/Documents/vault"
-alias std="cd ~/Documents/studium/sose25"
-alias forsa='cd ~/Documents/studium/sose25/forsa'
-alias isda='cd ~/Documents/studium/sose25/isda'
-alias nw='cd ~/Documents/studium/sose25/nw/osiris'
-alias loc='cd ~/Documents/locationhero/entwicklung'
-alias cod="cd ~/Documents/coding/"
+alias std="cd ~/studium/sose25"
+alias forsa='cd ~/studium/sose25/forsa'
+alias isda='cd ~/studium/sose25/isda'
+alias nw='cd ~/studium/sose25/nw/osiris'
+alias loc='cd ~/locationhero/entwicklung'
+alias cod="cd ~/coding/"
 alias cnf="cd ~/.config/"
