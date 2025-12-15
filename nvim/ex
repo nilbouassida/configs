@@ -1,0 +1,188 @@
+---@diagnostic disable: undefined-global
+local startup_dir        = vim.fn.getcwd()
+
+-- basic settings
+vim.o.number             = true
+vim.o.relativenumber     = true
+vim.o.signcolumn         = 'yes'
+vim.o.wrap               = false
+vim.o.tabstop            = 4
+vim.o.expandtab          = true
+vim.o.shiftwidth         = 4
+vim.opt.softtabstop      = 4
+vim.o.swapfile           = false
+vim.g.mapleader          = ' '
+vim.o.winborder          = 'rounded'
+vim.opt.ignorecase       = true
+vim.opt.incsearch        = true
+vim.opt.hlsearch         = true
+vim.opt.smartcase        = true
+
+-- for nvim-tree
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors    = true
+
+
+-- basic remaps
+vim.keymap.set('n', '<leader>o', ':update<CR> :so<CR>')
+vim.keymap.set('n', '<leader>w', ':write<CR>')
+vim.keymap.set('n', '<leader>q', ':quit<CR>')
+vim.keymap.set('n', '<leader>k', ':quit!<CR>')
+
+vim.keymap.set('n', '<Esc><Esc>', ':noh<CR>')
+vim.keymap.set('v', 'K', '"+y')
+
+-- comment out selected text
+vim.keymap.set('x', '<leader>/', function()
+    local esc = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+    vim.api.nvim_feedkeys(esc, 'x', false)
+    local cs = vim.bo.commentstring:gsub('%%s', '')
+    vim.cmd("'<,'>normal! I" .. cs)
+end)
+
+
+-- packs
+vim.pack.add({
+    { src = 'https://github.com/vague2k/vague.nvim' },
+    { src = 'https://github.com/chomosuke/typst-preview.nvim' },
+    { src = 'https://github.com/echasnovski/mini.pick' },
+    { src = 'https://github.com/neovim/nvim-lspconfig' },
+    { src = 'https://github.com/rose-pine/neovim' },
+    { src = 'https://github.com/stevearc/oil.nvim' },
+    { src = 'https://github.com/nvim-tree/nvim-tree.lua', },
+    { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
+    -- cmp
+    { src = 'https://github.com/hrsh7th/nvim-cmp' },
+    { src = 'https://github.com/hrsh7th/cmp-nvim-lsp' },
+    { src = 'https://github.com/hrsh7th/cmp-buffer' },
+    { src = 'https://github.com/hrsh7th/cmp-path' },
+    { src = 'https://github.com/L3MON4D3/LuaSnip' },
+    { src = 'https://github.com/saadparwaiz1/cmp_luasnip' },
+})
+
+require('completion')
+require 'mini.pick'.setup()
+require 'nvim-tree'.setup()
+
+
+
+-- LSP stuff
+-- vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+-- vim.lsp.enable({ 'lua_ls', 'svelte-language-server', 'tinymist', 'clangd', 'pyright', 'tsserver', 'html', 'tailwindcss',
+--     'cssls', 'marksman', 'bashls', 'rust_analyzer' })
+
+-- Remove old vim.lsp.enable call and replace with:
+
+vim.api.nvim_create_autocmd('VimEnter', {
+    once = true,
+    callback = function()
+        require('mini.pick').setup()
+        require('nvim-tree').setup()
+
+        local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+        local lsp_attach = function(client, bufnr)
+            -- Enable completion triggered by <c-x><c-o>
+            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+            -- Mappings
+            local opts = { buffer = bufnr }
+            vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+            vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
+            vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
+            vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+            vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, opts)
+        end
+
+        local servers = {
+            'lua_ls',
+            'clangd',
+            'pyright',
+            'ts_ls',
+            'html',
+            'tailwindcss',
+            'cssls',
+            'marksman',
+            'bashls',
+            'rust_analyzer'
+        }
+
+        for _, server in ipairs(servers) do
+            require('lspconfig')[server].setup({
+                on_attach = lsp_attach,
+                capabilities = lsp_capabilities,
+            })
+        end
+
+        -- Add Svelte config manually (install with: npm install -g svelte-language-server)
+        require('lspconfig').svelte.setup({
+            cmd = { "svelteserver", "--stdio" },
+            filetypes = { "svelte" },
+            root_dir = require('lspconfig.util').root_pattern("package.json", ".git"),
+            on_attach = lsp_attach,
+            capabilities = lsp_capabilities,
+        })
+    end
+})
+
+
+
+-- vim.api.nvim_create_autocmd('LspAttach', {
+-- callback = function(ev)
+-- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+-- if client:supports_method('textDocument/completion') then
+-- vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+-- end
+-- vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+-- end,
+-- })
+-- vim.cmd('set completeopt+=noselect')
+
+
+
+
+-- plugin remaps
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'hide tree' })
+vim.keymap.set('n', '<leader>t', ':NvimTreeFocus<CR>', { desc = 'hide tree' })
+vim.keymap.set('n', '<leader>f', ':Pick files show_hidden=true<CR>')
+vim.keymap.set('n', '<C-x>', ':MarkdownPreview<CR>', { desc = 'preview file' })
+vim.keymap.set('n', '<leader>h', ':Pick help<CR>')
+
+
+vim.cmd('colorscheme vague')
+vim.cmd(':hi statusline guibg=NONE')
+
+
+
+-- vim.keymap.set('n', '<leader>t', ':Oil<CR>')
+
+-- vim.keymap.set('n', '<leader>h', function()
+-- -- Change to startup directory temporarily
+-- local current_dir = vim.fn.getcwd()
+-- vim.cmd('cd ' .. startup_dir)
+--
+-- -- Get all files recursively, ignoring git
+-- local files = vim.split(vim.fn.glob('**/*'), '\n')
+-- files = vim.tbl_filter(function(file)
+-- return vim.fn.isdirectory(file) == 0 and not file:match('%.git/')
+-- end, files)
+--
+-- require('mini.pick').start({
+-- source = { items = files, name = 'Files' }
+-- })
+--
+-- -- Restore original directory
+-- vim.cmd('cd ' .. current_dir)
+-- end)
+
+
+
+
+-- vim.keymap.set('n', '<leader>f', ':NvimTreeFindFile<CR>')
+-- vim.keymap.set('n', '<leader>e', ':Oil<CR>')
+-- vim.keymap.set('n', '<leader>f', ':NvimTreeFocus<CR>', { desc = 'open tree' })
+
+-- I dont think I like oil tbh
+--  { src = 'https://github.com/stevearc/oil.nvim' },
+-- require 'oil'.setup()

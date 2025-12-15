@@ -1,0 +1,41 @@
+local lspconfig = require('lspconfig')
+local mason = require('mason')
+local mason_lspconfig = require('mason-lspconfig')
+
+-- Enable Mason (auto-installs LSPs)
+mason.setup()
+mason_lspconfig.setup({
+  ensure_installed = { "lua_ls", "pyright", "tsserver", "rust_analyzer" } -- Add your LSPs here
+})
+
+-- Basic LSP settings
+local on_attach = function(client, bufnr)
+  local opts = { buffer = bufnr, silent = true }
+
+  -- Keybindings
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+end
+
+-- Configure LSPs via mason-lspconfig
+-- mason_lspconfig.setup_handlers({
+--  function(server_name)
+--    lspconfig[server_name].setup({
+--      on_attach = on_attach,
+--      capabilities = require('cmp_nvim_lsp').default_capabilities(),
+--    })
+--  end,
+--})
+
+-- Lua LSP special config (optional)
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      diagnostics = { globals = { 'vim' } },
+      workspace = { checkThirdParty = false },
+    },
+  },
+})

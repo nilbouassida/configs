@@ -1,0 +1,100 @@
+:q
+moves
+      let moves = catapultMoves board White (Pos 'a' 9)
+      let board = buildBoard fen
+let fen = "w9/1w/2wg///5b"
+moves
+      let moves = catapultMoves board White (Pos 'a' 9)
+      let board = buildBoard fen
+let fen = "w9/1w/2wg//4b"
+:r
+      soldierMoves board White (Pos 'b' 8)
+let board = buildBoard "4W5/1w1w1w1w1w/1G1w1w1w1w/1w1w1w1w1w/5g4/4G5/b1b1b1b1b1/b1b1b1b1b1/b1b1b1b1b1/7B2"
+      soldierMoves board White (Pos 'b' 8)
+let board = buildBoard "4W5/1w1w1w1w1w/1g1w1w1w1w/1w1w1w1w1w/5g4/4G5/b1b1b1b1b1/b1b1b1b1b1/b1b1b1b1b1/7B2"
+      soldierMoves board White (Pos 'b' 8)
+let board = buildBoard "4W5/1w1w1w1w1w/1B1w1w1w1w/1w1w1w1w1w/5g4/4G5/b1b1b1b1b1/b1b1b1b1b1/b1b1b1b1b1/7B2"
+      soldierMoves board White (Pos 'b' 8)
+let board = buildBoard "4W5/1w1w1w1w1w/1b1w1w1w1w/1w1w1w1w1w/5g4/4G5/b1b1b1b1b1/b1b1b1b1b1/b1b1b1b1b1/7B2"
+:r
+      soldierMoves board White (Pos 'b' 8)
+let board = buildBoard "4W5/1w1w1w1w1w/1b1w1w1w1w/1w1w1w1w1w/5g4/4G5/b1b1b1b1b1/b1b1b1b1b1/b1b1b1b1b1/7B2"
+:r
+      soldierMoves board White (Pos 'b' 8)
+:r
+      soldierMoves board White (Pos 'b' 8)
+      soldierMoves board White (Pos 'b' 8)
+      soldierMoves board White (Pos 'b' 8)
+      soldierMoves board White (Pos 'b' 8)
+let board = buildBoard "4W5/1w1w1w1w1w/1b1w1w1w1w/1w1w1w1w1w/5g4/4G5/b1b1b1b1b1/b1b1b1b1b1/b1b1b1b1b1/7B2"
+:r
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+:r
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+:r
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+:r
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+:r
+:r
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+:r
+:r
+:r
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") Black
+buildBoard "4w/3ww5/2wgw5///4b//B/b/B"
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/b/B") White
+playerWon (buildBoard "4w/3ww5/2wgw5///4b//B/B/B") White
+playerWon (buildBoard "4w/3ww5/2wgw5///4b////B") White
+playerWon (buildBoard "4w/3ww5/2wgw5///4b////B") Black
+playerWon (buildBoard "4w/3ww5/2wgw5///4b////F") Black
+playerWon (buildBoard "4w/3ww5/2wgw5///4b////") Black
+playerWon (buildBoard "4w/3ww5/2wgw5///4b////") White
+listMoves (buildBoard "4w/3ww5/2wgw5///4b////") White
+listMoves (buildBoard "4w/3ww5/2wgw5///4b////") White
+listMoves (buildBoard "4w/3ww5/2wgw5///4b////") Black
+listMoves (buildBoard "4w/3ww5/2wgw5///4b////") Black
+:r
+listMoves (buildBoard "4w/3ww5/2wgw5///4b////") Black
+listMoves (buildBoard "4w/3ww5/2wgw5///4b////") Black
+catapultMoves (buildBoard "4w/3ww5/2wgw5///4b////") White (Pos 'e' 9)
+:r
+:r
+:r
+catapultMoves (buildBoard "4w/3ww5/2wgw5///4b////") White (Pos 'e' 9)
+catapultMoves (buildBoard "4w/3ww5/2wGw5///4b////") White (Pos 'e' 9)
+catapultMoves (buildBoard "4w/3ww5/2w1w5///4b////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w/3ww5/2w1w5///4b////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w/3ww5/2w1w5///4b////") White (Pos 'e' 9)
+catapultMoves (buildBoard "4w5/4w5/4w5///4b////") White (Pos 'e' 9)
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+:r
+:r
+:r
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
+catapultMoves (buildBoard "4w5/4w5/4w5//4b5/////") White (Pos 'e' 9)
