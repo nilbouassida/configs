@@ -55,9 +55,10 @@ vim.pack.add({
     { src = 'https://github.com/jreybert/vimagit' },
     { src = 'https://github.com/echasnovski/mini.nvim' },
 
-    { src = 'https://github.com/neovim/nvim-lspconfig' },
 
     -- snippets / lsp
+    { src = 'https://github.com/neovim/nvim-lspconfig' },
+
     { src = 'https://github.com/L3MON4D3/LuaSnip' },
     { src = 'https://github.com/hrsh7th/nvim-cmp' },
     { src = 'https://github.com/saadparwaiz1/cmp_luasnip' },
